@@ -24,16 +24,16 @@ while True:
     for x in range(1, Length + 1):    # 1...10
         if x == roboX and (x == bomb1 or x == bomb2):
             print("💧", end=" ")
-            bombExploded = True 
-        
+            bomb1 = bomb1Exploded = True
         elif x == roboX and x == heart:
                 print("⛇", end=" ") 
         elif x == roboX:
             print("⛄", end=" ")
         elif x == bomb1:
             print("💣", end=" ")
-            # if bombExploded == True:
-            #     print("_", end="")
+        elif roboX == bomb1 and bomb1Exploded == True:
+                 bomb1Exploded = "_"
+                 print("_", end="")
                 
         elif x == bomb2:
             print("💣", end=" ") 
