@@ -7,13 +7,15 @@ from tabnanny import check
 
 Length = 30
 roboX  = 5
-bomb1 = 10
+bomb1 = 10 
 bomb2 = 20 
 heart = 30
 option = ""
 roboHP = 100
 roboBT = 100
-bombExploded = False
+bomb1Exploded = False
+bomb2Exploded = False
+
 ###### Game loop #######
 while True:
 ####################### DRAW MAP #########################
@@ -22,23 +24,28 @@ while True:
     print('\n')
 
     for x in range(1, Length + 1):    # 1...10
-        if x == roboX and (x == bomb1 or x == bomb2):
+        if x == roboX and x == bomb1:
             print("💧", end=" ")
-            bomb1 = bomb1Exploded = True
+            x = bomb1 = bomb1Exploded
+            bomb1Exploded = True
+            
+        elif x == roboX and x == bomb2:
+            print("💧", end=" ")
+            x = bomb2 = bomb2Exploded
+            bomb2Exploded = True
+            
         elif x == roboX and x == heart:
-                print("⛇", end=" ") 
+            print("⛇", end=" ") 
+            
         elif x == roboX:
             print("⛄", end=" ")
-        elif x == bomb1:
-            print("💣", end=" ")
-        elif roboX == bomb1 and bomb1Exploded == True:
-                 bomb1Exploded = "_"
-                 print("_", end="")
+        
+        elif x == bomb1 and bomb1Exploded == False:
+            print("💣", end=" ")    
                 
-        elif x == bomb2:
+        elif x == bomb2 and bomb2Exploded == False:
             print("💣", end=" ") 
-            #if bombExploded == True:
-                #     print("_", end="")
+            
         elif x == heart:
             print("💜", end=" ") 
             
@@ -46,11 +53,7 @@ while True:
             print(".", end=" ")
     print('\n')        
     print("HP:", roboHP, "%")
-    if roboHP == 101 or roboHP >= 101:
-        print("HP FULL")
     print("Battery:", roboBT, "%")
-    if roboBT == 101 or roboBT >= 101:
-        print("POWER OVERLOAD")
     print('\n')
 ####################### DRAW MAP #########################
 ####################### READ INPUT #########################
@@ -66,17 +69,18 @@ while True:
     # check if bomb
     if roboX == bomb1 or roboX == bomb2:
         roboHP -= 10  
-        roboBT >= 0
-        
         
     # check if HEART    
     if roboX == heart:
-        roboHP += 20        
+        roboHP += 20
         roboBT += 5
     
     if option == "x" or roboHP == 0 or roboBT == 0:  # exit
         system("cls")
         print("Thank you for playing!!! ")
         break
-         
+    if option == "x" or roboHP > 100 or roboBT > 100:
+        system("cls")
+        print("YOU WIN!")
+        break  
 ####################### DECIDE #########################
